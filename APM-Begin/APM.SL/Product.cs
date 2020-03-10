@@ -33,16 +33,13 @@ namespace APM.SL
         public decimal CalculateMargin(string costInput, string priceInput)
         {
             bool success = decimal.TryParse(costInput, out decimal cost);
-            decimal margin = 0m;
-            if (success)
-            {
-                success = decimal.TryParse(priceInput, out decimal price);
-                if (success && price > 0)
-                {
-                    margin = ((price - cost) / price) * 100M;
-                }
-            }
-
+            if (!success) throw new ArgumentException("The cost must be number 0 or greater!","cost");
+            
+            success = decimal.TryParse(priceInput, out decimal price);
+            if (!success || price <= 0) throw new ArgumentException("The price must be number 0 or greater!", "price");
+            
+            decimal margin = ((price - cost) / price) * 100M;
+            
             return margin;
         }
 
