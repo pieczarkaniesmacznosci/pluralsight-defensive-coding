@@ -22,8 +22,6 @@ namespace APM.SL
 
         public string Reason { get; set; }
 
-
-
         /// <summary>
         /// Calculate the potential profit margin.
         /// </summary>
@@ -32,18 +30,18 @@ namespace APM.SL
         /// <returns>Resulting profit margin</returns>
         public decimal CalculateMargin(string costInput, string priceInput)
         {
-            bool success = decimal.TryParse(costInput, out decimal cost);
-            if (!success) throw new ArgumentException("The cost must be number 0 or greater!","cost");
-            
-            success = decimal.TryParse(priceInput, out decimal price);
-            if (!success || price <= 0) throw new ArgumentException("The price must be number 0 or greater!", "price");
-            
-            decimal margin = ((price - cost) / price) * 100M;
-            
+            Guard.ThrowIfNullOrEmpty(costInput, "Please enter the cost", "cost");
+            Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
+
+            var cost = Guard.ThrowIfNotPositiveDecimal(costInput,
+                    "The cost must be a number 0 or greater", "cost");
+            var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput,
+                    "The price must be a number greater than 0", "price");
+
+            var margin = Math.Round(((price - cost) / price) * 100M);
+
             return margin;
         }
-
-
 
         /// <summary>
         /// Calculates the total amount of the discount

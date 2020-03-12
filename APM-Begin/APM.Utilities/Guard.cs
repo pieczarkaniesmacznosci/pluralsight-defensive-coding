@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace APM.SL
@@ -12,8 +13,10 @@ namespace APM.SL
     }
 
     public static decimal ThrowIfNotPositiveDecimal(string argumentValue, string message, string parameterName)
-    {
-      var success = decimal.TryParse(argumentValue, out decimal result);
+        {
+            var style = NumberStyles.Number;
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            var success = decimal.TryParse(argumentValue,style, culture, out decimal result); ;
       if (!success || result < 0) throw new ArgumentException(message, parameterName);
 
       return result;
