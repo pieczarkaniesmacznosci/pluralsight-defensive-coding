@@ -322,6 +322,7 @@ namespace APM.SL.Test
 
             // use of null-forgiving operator to tell compiler that we specifically want to pass null
             Assert.Equal("Please specify a discount", ex.Message);
+            // Reference type nullability features by setting element <nullability>enable</nullability> in each project . Turning on this feature allows us to explicitly annotate nullable reference types and the compiler gives us warnings when our intent is unclear or incosistent. We specify nullable reference types the same way as in values types by use of ? after the type. If we want to provide null, we can use null-forgiving operator !  after the variable.
         }
 
         [Fact]
