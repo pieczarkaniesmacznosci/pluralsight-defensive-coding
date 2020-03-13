@@ -23,8 +23,10 @@ namespace APM.SL
     }
 
     public static decimal ThrowIfNotPositiveNonZeroDecimal(string argumentValue, string message, string parameterName)
-    {
-      var success = decimal.TryParse(argumentValue, out decimal result);
+        {
+            var style = NumberStyles.Number;
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            var success = decimal.TryParse(argumentValue, style, culture, out decimal result);
       if (!success || result <= 0) throw new ArgumentException(message, parameterName);
 
       return result;

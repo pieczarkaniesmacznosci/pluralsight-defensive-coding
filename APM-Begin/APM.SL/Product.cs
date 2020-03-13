@@ -51,9 +51,9 @@ namespace APM.SL
         {
             if (price <= 0) throw new ArgumentException("Please enter the price");
 
-            if (discount is null) throw new ArgumentException("Please specify a discount");
+            if (discount?.PercentOff is null) throw new ArgumentException("Please specify a discount");
 
-            var discountAmount = price * (discount.PercentOff / 100);
+            var discountAmount = price * (discount.PercentOff.Value / 100);
 
             return discountAmount;
         }
